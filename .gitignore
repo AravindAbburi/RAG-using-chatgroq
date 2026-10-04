@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+venv/
+chroma_db/
+*.zip
+*.sqlite3
+.bin
+.vscode/
+.idea/
+.DS_Store
+output/
