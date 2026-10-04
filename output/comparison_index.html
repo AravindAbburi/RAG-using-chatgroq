@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RAG System — Comparison Index (Instant Preview)</title>
+<style>
+  :root {
+    --hlgreen: #d4edda; --hlyellow: #fff3cd; --hlred: #f8d7da;
+    --green: #28a745; --yellow: #ffc107; --red: #dc3545;
+    --blue: #0056b3;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; max-width: 1200px; margin: 30px auto; padding: 0 20px; color: #222; background: #fafafa; }
+  h1 { border-bottom: 3px solid var(--blue); padding-bottom: 10px; color: var(--blue); }
+  h2 { margin-top: 45px; border-left: 6px solid var(--blue); padding-left: 10px; color: #1a1a1a; }
+  h3 { margin-top: 25px; color: #333; }
+  .card { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 20px; margin: 18px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  img { max-width: 100%; border: 1px solid #ccc; border-radius: 8px; display: block; margin: 0 auto; }
+  .caption { text-align: center; font-style: italic; font-size: 0.92em; color: #555; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.95em; }
+  th, td { border: 1px solid #ccc; padding: 9px 10px; text-align: center; }
+  th { background: #0056b3; color: #fff; }
+  tr:nth-child(even) td { background: #f7faff; }
+  td.full { background: var(--hlgreen); }
+  td.partial { background: var(--hlyellow); }
+  td.none { background: var(--hlred); }
+  td.rowhead { font-weight: bold; text-align: left; background: #eef2f7; }
+  .legend { display: flex; gap: 18px; justify-content: center; margin-top: 10px; font-size: 0.9em; }
+  .sw { display: inline-block; width: 14px; height: 14px; border: 1px solid #888; border-radius: 3px; vertical-align: middle; margin-right: 5px; }
+  .bar-chart { display: flex; align-items: flex-end; justify-content: space-around; height: 300px; border-bottom: 2px solid #333; border-left: 2px solid #333; padding: 10px 10px 0 30px; position: relative; background: #fff; }
+  .bar { width: 70px; margin: 0 6px; border-radius: 4px 4px 0 0; display: flex; align-items: flex-end; justify-content: center; color: #fff; font-weight: bold; font-size: 0.85em; padding-bottom: 4px; position: relative; }
+  .bar.naive { background: rgba(220, 53, 69, 0.8); }
+  .bar.mmr   { background: rgba(40, 167, 69, 0.8); }
+  .bar-label { position: absolute; bottom: -38px; left: 50%; transform: translateX(-50%); color: #222; font-weight: bold; font-size: 0.82em; white-space: nowrap; }
+  .group { display: flex; flex-direction: column; align-items: center; }
+  .group-title { font-weight: bold; margin-top: 45px; }
+  .y-axis { position: absolute; left: 0; top: 0; bottom: 0; width: 30px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px 0; font-size: 0.75em; color: #555; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.8em; margin: 2px; }
+  .tag-exec  { background: #ffe3e3; color: #b33; }
+  .tag-prod  { background: #fff1cc; color: #a46b00; }
+  .tag-eng   { background: #d6ecff; color: #00407a; }
+  .tag-ml    { background: #e4d6ff; color: #4a1a94; }
+  .tag-new   { background: #d4f7df; color: #137238; }
+  .tag-audit { background: #ffd9f0; color: #94216d; }
+  code { background: #eee; padding: 1px 5px; border-radius: 3px; font-family: Consolas, monospace; }
+</style>
+</head>
+<body>
+
+<h1>🔍 RAG System — Comparison Index<br><span style="font-size:0.6em;color:#666;font-weight:normal;">Instant Preview (no LaTeX compiler required)</span></h1>
+
+<p>This page is a <strong>browser-friendly mirror</strong> of the 5 main comparisons in Section 10 of the LaTeX report. Use it for:
+<ul>
+  <li>Quickly sharing the visuals with someone who doesn't have a TeX setup</li>
+  <li>Selecting which PNGs to copy-paste directly into slides / Notion docs</li>
+  <li>Using the HTML matrix / bar chart as a live-updating version you can edit before re-compiling the report</li>
+</ul>
+<p>The original, printable source with full citations and TikZ vector diagrams is at <code>report_latex/report.tex</code>.
+
+<hr>
+
+<h2>📁 Folder Map (created for this step)</h2>
+<div class="card">
+<pre>
+Assignment AI/
+├── report_latex/              ← LaTeX report HERE (new folder)
+│   ├── report.tex             ← Full ~30 pg report (compiles to PDF)
+│   └── images/                ← 4 PNGs (shown below):
+│       ├── rag_pipeline_overview.png
+│       ├── retrieval_comparison.png
+│       ├── system_comparison_ui.png
+│       └── feature_matrix_heatmap.png
+└── output/                    ← Output comparisons HERE (new folder)
+    ├── COMPARISON_USAGE_GUIDE.md
+    └── comparison_index.html  ← THIS FILE
+</pre>
+</div>
+
+<hr>
+
+<h2>🏗️ COMPARISON 1: Architecture (Plain LLM → Naive RAG → THIS SYSTEM)</h2>
+
+<h3>Visual — Side-by-Side User Experience (drop into slides)</h3>
+<div class="card">
+  <img src="../report_latex/images/system_comparison_ui.jpg" alt="UI Comparison">
+  <div class="caption"><strong>Use with:</strong> <span class="tag tag-prod">Product</span> <span class="tag tag-exec">Executives</span> — Demo-day / pitch-deck opening slide.</div>
+</div>
+
+<h3>Decision Matrix (which architecture for which scenario)</h3>
+<div class="card">
+<table>
+  <tr><th>Scenario</th><th>Plain LLM</th><th>Naive RAG</th><th>THIS SYSTEM</th></tr>
+  <tr><td class="rowhead">Creative writing / brainstorming</td><td class="full">Best</td><td class="partial">OK</td><td class="none">Overkill</td></tr>
+  <tr><td class="rowhead">Customer FAQ over static docs</td><td class="none">Poor</td><td class="full">Good</td><td class="full">Best</td></tr>
+  <tr><td class="rowhead">Regulated / auditable domain</td><td class="none">Unsafe</td><td class="partial">OK</td><td class="full">Required</td></tr>
+  <tr><td class="rowhead">Multi-user long-running sessions</td><td class="none">Poor</td><td class="none">Poor</td><td class="full">Required</td></tr>
+  <tr><td class="rowhead">Zero-budget hobby prototype</td><td class="full">Cheapest</td><td class="partial">OK</td><td class="none">Overkill</td></tr>
+  <tr><td class="rowhead">Follow-up chat / anaphora questions</td><td class="none">Lost context</td><td class="partial">Partial</td><td class="full">Native rewrite</td></tr>
+</table>
+<div class="legend">
+  <span><span class="sw" style="background:var(--hlgreen)"></span>Best fit / Required</span>
+  <span><span class="sw" style="background:var(--hlyellow)"></span>OK / Partial</span>
+  <span><span class="sw" style="background:var(--hlred)"></span>Overkill / Unsafe</span>
+</div>
+</div>
+
+<h3>Pipeline Overview Visual</h3>
+<div class="card">
+  <img src="../report_latex/images/rag_pipeline_overview.png" alt="RAG Pipeline">
+  <div class="caption"><strong>Use with:</strong> <span class="tag tag-new">New hires</span> <span class="tag tag-exec">Executives</span> — Conceptual introduction, no jargon.</div>
+</div>
+
+<hr>
+
+<h2>🔎 COMPARISON 2: Retrieval (Naive Top-K Similarity vs MMR)</h2>
+
+<h3>Head-to-Head Bar Chart (live HTML version)</h3>
+<div class="card">
+  <div class="bar-chart">
+    <div class="y-axis">
+      <span>1.0</span><span>0.8</span><span>0.6</span><span>0.4</span><span>0.2</span><span>0</span>
+    </div>
+
+    <div class="group">
+      <div class="bar naive" style="height:82%">0.82</div>
+      <div class="bar-label">Naive Sim</div>
+    </div>
+    <div class="group">
+      <div class="bar mmr" style="height:79%">0.79</div>
+      <div class="bar-label">MMR</div>
+    </div>
+
+    <div class="group">
+      <div class="bar naive" style="height:31%">0.31</div>
+      <div class="bar-label">Naive Sim</div>
+    </div>
+    <div class="group">
+      <div class="bar mmr" style="height:68%">0.68</div>
+      <div class="bar-label">MMR</div>
+    </div>
+
+    <div class="group">
+      <div class="bar naive" style="height:25%">0.25</div>
+      <div class="bar-label">Naive Sim</div>
+    </div>
+    <div class="group">
+      <div class="bar mmr" style="height:74%">0.74</div>
+      <div class="bar-label">MMR</div>
+    </div>
+  </div>
+  <div class="legend" style="margin-top:55px;">
+    <span><strong>Group 1 — Relevance@4</strong> (loss: -3%)</span>
+    <span><strong>Group 2 — Diversity</strong> (gain: +119%)</span>
+    <span><strong>Group 3 — Topics Covered</strong> (gain: +196%)</span>
+  </div>
+  <div class="legend" style="margin-top:10px;">
+    <span><span class="sw" style="background:rgba(220,53,69,.8)"></span>Naive Top-K Similarity</span>
+    <span><span class="sw" style="background:rgba(40,167,69,.8)"></span>MMR (λ=0.7, diversity-aware)</span>
+  </div>
+  <p class="caption"><strong>Use with:</strong> <span class="tag tag-eng">Engineering</span> <span class="tag tag-ml">ML Research</span> — Defends the MMR choice vs. simplification suggestions.</p>
+</div>
+
+<h3>Illustration Version (for slides)</h3>
+<div class="card">
+  <img src="../report_latex/images/retrieval_comparison.png" alt="Retrieval Comparison">
+  <div class="caption">Section-header visual that echoes the numeric bar chart above.</div>
+</div>
+
+<hr>
+
+<h2>💰 COMPARISON 3: Performance / Cost Optimization</h2>
+
+<h3>4 Configuration Latency × Cost Comparison</h3>
+<div class="card">
+<table>
+  <tr><th>Configuration</th><th>Latency (ms)</th><th>Cost / query</th><th>Δ cost vs All-On</th><th>Δ latency vs All-On</th></tr>
+  <tr><td class="rowhead">All features On (baseline)</td><td>2790</td><td>$0.0120</td><td>—</td><td>—</td></tr>
+  <tr><td class="rowhead">No heuristic (always rewrite)</td><td>2400</td><td>$0.0150</td><td class="none">+25%</td><td class="partial">-14%</td></tr>
+  <tr><td class="rowhead">No Self-RAG verification</td><td>2100</td><td>$0.0090</td><td class="full">-25%</td><td class="full">-25%</td></tr>
+  <tr><td class="rowhead">Bare LLM, no RAG (no grounding)</td><td>1650</td><td>$0.0050</td><td class="full">-58%</td><td class="full">-41%</td></tr>
+</table>
+<p class="caption"><strong>Use with:</strong> <span class="tag tag-exec">CFO / Budget</span> <span class="tag tag-eng">SLO planning</span> — Each config is a toggle. Heuristic-gated rewrite recovers 20%+ of cost by skipping 70-80% of rewrite calls.</p>
+</div>
+
+<h3>Absolute-Value Bar Chart (.NET-generated, valid PNG)</h3>
+<div class="card">
+  <img src="../report_latex/images/performance_latency_cost.png" alt="Latency and Cost Comparison Chart">
+  <div class="caption">Blue bars = latency (0–3000 ms). Orange bars = cost per query (0–$0.018). Each configuration is a separate vertical pair. This is the ready-to-drop PNG version for PowerPoint/Google Slides. No TeX compiler needed — just copy-paste directly from <code>report_latex/images/performance_latency_cost.png</code>.</div>
+</div>
+
+<hr>
+
+<h2>🧩 COMPARISON 4: Feature Matrix (This vs 3 Alternatives)</h2>
+
+<h3>Detailed HTML Matrix (TikZ Fig. 8 equivalent)</h3>
+<div class="card">
+<table>
+  <tr><th>Feature</th><th>THIS SYSTEM</th><th>LangChain default RAG</th><th>LlamaIndex default RAG</th><th>Vanilla Groq / OpenAI</th></tr>
+  <tr><td class="rowhead">MMR diversity-aware retrieval</td><td class="full">YES</td><td class="partial">Optional*</td><td class="partial">Optional*</td><td class="none">NO</td></tr>
+  <tr><td class="rowhead">Heuristic-gated query rewrite</td><td class="full">YES</td><td class="partial">Manual only</td><td class="partial">Manual only</td><td class="none">NO</td></tr>
+  <tr><td class="rowhead">Self-RAG answer verification</td><td class="full">YES</td><td class="none">NO</td><td class="none">NO</td><td class="none">NO</td></tr>
+  <tr><td class="rowhead">Persistent multi-user chat history</td><td class="full">SQLite</td><td class="partial">Plugin only</td><td class="partial">Plugin only</td><td class="none">NO</td></tr>
+  <tr><td class="rowhead">Native streaming + event types</td><td class="full">YES</td><td class="full">YES</td><td class="partial">Partial</td><td class="partial">Stream only</td></tr>
+  <tr><td class="rowhead">PDF + HF Dataset + Text 3-way ingest</td><td class="full">YES</td><td class="full">YES</td><td class="full">YES</td><td class="none">NO</td></tr>
+  <tr><td class="rowhead">Built-in retrieval eval harness</td><td class="full">YES</td><td class="none">NO</td><td class="partial">Benchmarks</td><td class="none">NO</td></tr>
+  <tr><td class="rowhead">LLM-based context compression</td><td class="full">YES</td><td class="partial">Plugin only</td><td class="partial">Plugin only</td><td class="none">NO</td></tr>
+</table>
+<div class="legend">
+  <span><span class="sw" style="background:var(--hlgreen)"></span>Full support / ships in box</span>
+  <span><span class="sw" style="background:var(--hlyellow)"></span>Partial / requires plugin or manual wiring</span>
+  <span><span class="sw" style="background:var(--hlred)"></span>Not provided</span>
+</div>
+<p class="caption"><strong>Use with:</strong> <span class="tag tag-eng">Architects</span> <span class="tag tag-ml">ML Research</span> <span class="tag tag-audit">Auditors</span> — Four differentiators are unique to this project: Self-RAG, heuristic rewrite, eval harness, SQLite multi-user history.</p>
+</div>
+
+<h3>Heatmap Illustration (executive summary version)</h3>
+<div class="card">
+  <img src="../report_latex/images/feature_matrix_heatmap.png" alt="Feature Heatmap">
+  <div class="caption"><strong>Use with:</strong> <span class="tag tag-exec">Executives</span> — Scannable; no numbers needed. Pair with the detailed matrix on the next slide for Q&A.</div>
+</div>
+
+<hr>
+
+<h2>🗺️ COMPARISON 5: Audience → Visual Cross-Reference (Pick 2 per meeting)</h2>
+
+<div class="card">
+<table>
+  <tr><th>Audience Persona</th><th>1st visual to show</th><th>2nd visual to show (if asked deep)</th></tr>
+  <tr>
+    <td class="rowhead"><span class="tag tag-exec">Executive / Sponsor</span><br>CFO, CTO, steering committee</td>
+    <td>Fig 9. Feature heatmap (scannable)</td>
+    <td>Fig 7. Latency/cost bars (budget context)</td>
+  </tr>
+  <tr>
+    <td class="rowhead"><span class="tag tag-prod">Product / UX</span><br>PM, designer, demo audience</td>
+    <td>Fig 4. UI side-by-side comparison</td>
+    <td>Fig 10. Query rewrite gating (SLA)</td>
+  </tr>
+  <tr>
+    <td class="rowhead"><span class="tag tag-eng">Engineering Lead</span><br>Staff engineer, design review</td>
+    <td>Fig 3. 3-architecture progression</td>
+    <td>Complexity table p.21 + cost p.25</td>
+  </tr>
+  <tr>
+    <td class="rowhead"><span class="tag tag-ml">ML / Research Eng</span><br>A/B test, embedding, framework eval</td>
+    <td>Fig 5. Naive vs MMR head-to-head</td>
+    <td>Fig 8. Feature matrix (framework pick)</td>
+  </tr>
+  <tr>
+    <td class="rowhead"><span class="tag tag-new">New Team Member</span><br>Onboarding day-1</td>
+    <td>Fig 1–2. Architecture / pipeline visual</td>
+    <td>Env var ref + file responsibility matrix</td>
+  </tr>
+  <tr>
+    <td class="rowhead"><span class="tag tag-audit">Auditor / Compliance</span><br>Regulatory, data integrity</td>
+    <td>Fig 3. (architecture NOT plain LLM)</td>
+    <td>SQLite schema + Self-RAG verify row in Fig 8</td>
+  </tr>
+</table>
+<p class="caption">Rule of thumb: for any 30-minute meeting, open with <strong>exactly one</strong> picture, offer the second only if the conversation dives deeper. Never walk through 10 visuals.</p>
+</div>
+
+<hr>
+
+<h2>🎯 Quick Link: Where to Find Everything</h2>
+
+<div class="card">
+<table>
+  <tr><th>Goal</th><th>Open this file</th><th>Section</th></tr>
+  <tr><td class="rowhead">Get printable PDF report</td><td><code>report_latex/report.tex</code></td><td>Compile with pdflatex (twice)</td></tr>
+  <tr><td class="rowhead">Grab PNGs for slides</td><td><code>report_latex/images/*.png</code></td><td>4 files, drag-and-drop</td></tr>
+  <tr><td class="rowhead">Full comparison reference guide</td><td><code>output/COMPARISON_USAGE_GUIDE.md</code></td><td>Sections 1–5 with editable value lines</td></tr>
+  <tr><td class="rowhead">Instant browser preview of all visuals</td><td><code>output/comparison_index.html</code></td><td>This file — double-click it 🎉</td></tr>
+  <tr><td class="rowhead">Edit comparison numbers</td><td><code>report_latex/report.tex</code></td><td>Section 10; TikZ bar heights are <code>value × 5</code> cm</td></tr>
+</table>
+</div>
+
+<footer style="text-align:center;color:#888;margin-top:60px;border-top:1px solid #ddd;padding-top:15px;">
+  Assignment AI — RAG System Comparative Analysis Bundle<br>
+  Auto-generated companion to <code>report_latex/report.tex</code>
+</footer>
+
+</body>
+</html>
